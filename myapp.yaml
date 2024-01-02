@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ease
+  labels:
+    app: ease
+    tier: web
+spec:
+   selector:
+    matchLabels:
+      app: ease
+      tier: web
+   template:
+    metadata:
+      labels:
+        app: ease
+        tier: web
+    spec:
+       #Init Containers are executed before the actual containers start
+       #https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+       #- perform migration
+       #- cache config
+      # - copy directory structure to persistent volume
+      initContainers:
+       - name: artisan
+         image: oceanstime/centosphp72
+         args:
+          - /bin/bash
+          - -c
+          - (cd /var/www/html/ && composer install --no-dev && composer require predis/predis) && (php artisan config:clear || true) && (php
+            artisan route:clear || true)
+         envFrom:
+           - configMapRef:
+               name: ease-config
+         volumeMounts:
+           - name: web-persistent-storage
+             mountPath: var/www/html/
+      containers:
+       - name: web
+         image: oceanstime/centosphp72
+         resources:
+          requests:
+            memory: "600Mi"
+            cpu: "500m"
+          #limits:
+            #memory: "600Mi"
+            #cpu: "200m"
+         envFrom:
+          - configMapRef:
+             name: ease-config
+         ports:
+          - containerPort: 80
+         volumeMounts:
+          - name: web-persistent-storage
+            mountPath: /var/www/html/
+      volumes:
+       - name: web-persistent-storage
+         persistentVolumeClaim:
+           claimName: ease-pvc

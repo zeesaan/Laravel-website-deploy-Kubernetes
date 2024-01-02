@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ease-pvc
+  labels:
+    app: ease
+    tier: web
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ease
+  resources:
+    requests:
+      storage: 3Gi

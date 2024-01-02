@@ -1,0 +1,28 @@
+# configuration that will be used by the Laravel web pod
+# this will override the content of .env
+#
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ease-config
+data:
+  APP_DEBUG: "true"
+  APP_ENV: production
+  APP_KEY: base64:4S74CjRhwJDfzccJ1zKa+mXx6i9zv35p1Sn5S6Hb3zA=
+  APP_LOG_LEVEL: debug
+  ASSET_URL: https://example.com.bd/
+  APP_NAME: "ease"
+  APP_URL: http://localhost
+  DB_CONNECTION: mysql
+  DB_HOST: mysql
+  DB_PORT: "3306"
+  DB_DATABASE: test
+  DB_USERNAME: test
+  DB_PASSWORD: pass
+  CACHE_DRIVER: redis
+  QUEUE_CONNECTION: redis
+  SESSION_DRIVER: redis
+  REDIS_HOST: tes-redis
+  REDIS_PORT: "6379"
+  QUEUE_DRIVER: redis
+

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ease-web
+  labels:
+    app: ease
+    tier: web
+spec:
+  type: LoadBalancer
+  selector:
+    app: ease
+    tier: web
+  ports:
+    - port: 80
+      targetPort: 80
