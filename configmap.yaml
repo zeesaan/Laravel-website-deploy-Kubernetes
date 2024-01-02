@@ -22,7 +22,7 @@ data:
   CACHE_DRIVER: redis
   QUEUE_CONNECTION: redis
   SESSION_DRIVER: redis
-  REDIS_HOST: tes-redis
+  REDIS_HOST: ease-redis
   REDIS_PORT: "6379"
   QUEUE_DRIVER: redis
 
