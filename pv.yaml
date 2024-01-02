@@ -11,5 +11,5 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    server: 192.168.9.2 # NFS server IP address 
+    server: 192.168.33.56 # NFS server IP address 
     path: "/Public/k8s_storage/ease/"   # NFS share location 
